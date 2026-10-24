@@ -3,7 +3,7 @@ import { Counter } from "prom-client";
 export const campaignPublished = new Counter({
   name: "ajeets_campaign_published_total",
   help: "Campaign publication outcomes",
-  labelNames: ["campaign_id", "channel", "result"],
+  labelNames: ["channel", "result"],
 });
 
 export const catalogLookup = new Counter({
@@ -23,7 +23,7 @@ export function recordCampaignPublished(campaign: any) {
     campaign.channel === "email" ? "email" : "web";
   const result = campaign.published ? "success" : "failure";
 
-  campaignPublished.labels(campaign.id, channel, result).inc();
+  campaignPublished.labels(channel, result).inc();
 
   console.info("campaign.published", {
     campaign_id: campaign.id,
