@@ -4,13 +4,13 @@ import { normalizeRouteName, statusClass } from "./metricDimensions";
 export const httpRequestDuration = new Histogram({
   name: "ajeets_marketing_http_request_duration_seconds",
   help: "HTTP request handling latency",
-  labelNames: ["method", "url", "status_class"],
+  labelNames: ["method", "route", "status_class"],
 });
 
 export const apiResponseBytes = new Histogram({
   name: "ajeets_marketing_api_response_bytes",
   help: "Serialized API response size",
-  labelNames: ["path", "method"],
+  labelNames: ["route", "method"],
 });
 
 export function observeHttpRequest(req: any, res: any, seconds: number, bytes: number) {
@@ -18,11 +18,11 @@ export function observeHttpRequest(req: any, res: any, seconds: number, bytes: n
   const responseClass = statusClass(res.statusCode);
 
   httpRequestDuration
-    .labels(req.method, req.originalUrl, responseClass)
+    .labels(req.method, routeName, responseClass)
     .observe(seconds);
 
   apiResponseBytes
-    .labels(req.path, req.method)
+    .labels(routeName, req.method)
     .observe(bytes);
 
   console.info("request.complete", {
