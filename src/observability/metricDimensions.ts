@@ -20,7 +20,7 @@ export function statusClass(statusCode: number): string {
   return "other";
 }
 
-export const APPROVED_CHANNELS = ["email", "web", "partner"] as const;
-export const APPROVED_RESULTS = ["success", "failure", "accepted", "rejected", "hit", "miss"] as const;
-export const APPROVED_REGIONS = ["nyc", "northeast", "national"] as const;
+export const CHANNELS = ["email", "web", "partner"] as const;
+export const RESULTS = ["success", "failure", "accepted", "rejected", "hit", "miss"] as const;
+export const REGIONS = ["nyc", "northeast", "national"] as const;
 export { KNOWN_ROUTES };
